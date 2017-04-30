@@ -1,0 +1,77 @@
+package lzw;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.*;
+import java.io.*;
+import javax.imageio.*;
+import javax.swing.*;
+public class InvokeProgram extends JFrame{
+  public static void main(String[] args){
+	  JFrame jf=new JFrame();
+	  
+	  //设置窗体属性
+	  jf.setSize(880, 330);
+	  jf.setTitle("HK");
+	  jf.setLocationRelativeTo(null);//设置窗口居中
+	  jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
+	  
+	  //给窗体设置背景图片
+	  JPanel panel=new JPanel(){
+		  protected void paintComponent(Graphics g){
+			  super.paintComponent(g);			  
+			  ImageIcon bg=new ImageIcon("D:\\bg.png");//图片路径
+			  g.drawImage(bg.getImage(), 0, 0, null);
+		  }
+	  };
+	  panel.setLayout(new FlowLayout());
+	  jf.add(panel);
+	  
+	//添加按钮  
+	  JButton jb1=new JButton("打开QQ");
+	  jb1.setSize(100,30);
+	  panel.add(jb1);
+	  
+	  JButton jb2=new JButton("打开文件夹");
+	  jb2.setSize(100, 30);
+	  panel.add(jb2);
+	  
+	  JButton jb3=new JButton("注销");
+	  jb3.setSize(100,30);
+	  panel.add(jb3);
+	  
+	  jf.setVisible(true);
+	  
+	  //按钮的监听器设置
+	  ActionListener action=new ActionListener(){
+		  public void actionPerformed(ActionEvent e){
+			  String text=e.getActionCommand();//获取按钮上的文字
+			  if("打开QQ".equals(text)){
+				  Runtime runtime=Runtime.getRuntime();
+				  try{
+					  runtime.exec("D:/Program Files (x86)/Tencent/QQLite/Bin/QQScLauncher.exe");//程序路径
+				  }catch(IOException e1){
+					  e1.printStackTrace();
+				  }
+			  }else if("打开文件夹".equals(text)){
+				  Runtime runtime=Runtime.getRuntime();
+				  try{
+					  runtime.exec("cmd /c start d:\\");//文件路径
+				  }catch(IOException e1){
+					  e1.printStackTrace();
+				  }
+			  }else if("注销".equals(text)){
+				  Runtime runtime=Runtime.getRuntime();
+				  try{
+					  runtime.exec("cmd /c start shutdown -l");
+				  }catch(IOException e1){
+					  e1.printStackTrace();
+				  }
+			  }
+		  }
+	  };	  
+	  //为每个按钮添加监听器
+	  jb1.addActionListener(action);
+	  jb2.addActionListener(action);
+	  jb3.addActionListener(action);
+  }
+}

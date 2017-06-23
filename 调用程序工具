@@ -75,3 +75,61 @@ public class InvokeProgram extends JFrame{
 	  jb3.addActionListener(action);
   }
 }
+
+170623新
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+
+import javax.swing.*;
+
+public class Cmd extends JFrame {
+	 public static void main(String[] args) {
+	  JFrame jf = new JFrame();
+	  // 设置窗体属性
+	  jf.setSize(200, 90);
+	  jf.setLocationRelativeTo(null);//窗体居中
+	  jf.setResizable(false);//禁用最大化
+	  jf.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);//禁用关闭
+	  // 给窗体设置背景图片
+	  JPanel panel = new JPanel() {
+	   protected void paintComponent(Graphics g) {
+	    super.paintComponent(g);
+	    ImageIcon bg = new ImageIcon("D:\\soft\\hk.png");
+	    g.drawImage(bg.getImage(), 50, 35,86,28, null);//指定坐标,大小   
+	    }  };
+	  panel.setLayout(new FlowLayout());// 设置面板为绝对布局
+	  jf.add(panel);
+	  // 按钮的监听器
+	    ActionListener action = new ActionListener() {
+	     public void actionPerformed(ActionEvent e) {
+	      // 拿到按钮上的文字
+	      String text = e.getActionCommand();
+	      if ("K3".equals(text)) {
+	       Runtime runtime = Runtime.getRuntime();
+	       try {        runtime.exec("C:/Program Files (x86)/Kingdee/K3ERP/KdMain.exe");
+	       } catch (IOException e1) {
+	        e1.printStackTrace();       }
+	      } else if ("import".equals(text)) {
+	       Runtime runtime = Runtime.getRuntime();
+	       try {        runtime.exec("cmd /c start e:\\import\\");
+	       } catch (IOException e1) {
+	        e1.printStackTrace();       } 
+	      }  else if ("EXIT".equals(text)) {
+	       Runtime runtime = Runtime.getRuntime();
+	       try {        runtime.exec("cmd /c start shutdown -l");
+	       } catch (IOException e1) {
+	        e1.printStackTrace();       }      }     }    };
+	  //添加按钮
+	  String[] str={"K3","import","EXIT"};
+	  JButton[] jb=new JButton[3];
+	  for(int i=0;i<3;i++){
+	   jb[i]=new JButton(str[i]);
+	   jb[i].setSize(100,30);
+	   panel.add(jb[i]);
+	   jb[i].addActionListener(action);// 给按钮添加监听器  
+	   }
+	//jf.setUndecorated(true);//去掉边框
+	  jf.setVisible(true); 
+	  }
+	  }
